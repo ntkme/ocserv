@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  ocserv:
+    image: ntkme/ocserv
+    hostname: $HOSTNAME
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "443:443/tcp"
+      - "443:443/udp"
+    volumes:
+      - "./etc/letsencrypt:/etc/letsencrypt:ro"
+    restart: always
+    depends_on:
+      - certbot
+  certbot:
+    image: ntkme/certbot
+    hostname: $HOSTNAME
+    ports:
+      - "80:80/tcp"
+    volumes:
+      - "./etc/letsencrypt:/etc/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart: always
