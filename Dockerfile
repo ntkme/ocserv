@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ARG OCSERV_BRANCH=1.1.0
+ARG OCSERV_BRANCH=1.1.1
 
 RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readline shadow \
  && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c readline-dev \
@@ -21,7 +21,7 @@ RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readl
         -e '/^try-mtu-discovery = /s/=.*$/= true/' \
         -e '/^cert-user-oid = /s/=.*$/= 2.5.4.3/' \
         -e '/^#compression = true/s/^#//' \
-        -e '/^tls-priorities = /s/=.*$/= "SECURE256:+SECURE128:-VERS-TLS1.0:-VERS-TLS1.1:-VERS-TLS1.3:-VERS-DTLS1.0:-AES-128-CBC:-AES-128-CCM:-AES-256-CBC:-AES-256-CCM:-RSA:-SHA1"/' \
+        -e '/^tls-priorities = /s/=.*$/= "SECURE256:+SECURE128:-VERS-TLS1.0:-VERS-TLS1.1:-VERS-DTLS1.0:-AES-128-CBC:-AES-128-CCM:-AES-256-CBC:-AES-256-CCM:-RSA:-SHA1"/' \
         -e '/^#dns = /{' \
         -e 'a dns = 1.1.1.1' \
         -e 'a dns = 1.0.0.1' \
