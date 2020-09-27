@@ -1,4 +1,4 @@
-# docker-ocserv
+# container-ocserv
 
 ``` sh
 docker run -d \
