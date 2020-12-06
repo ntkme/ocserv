@@ -1,10 +1,10 @@
 FROM alpine:latest
 
-ARG OCSERV_BRANCH=1.1.2
+ARG OCSERV_BRANCH
 
 RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readline shadow \
  && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c readline-dev \
- && git clone --branch $OCSERV_BRANCH --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
+ && git clone --branch "${OCSERV_BRANCH:-$(curl -fsSL https://gitlab.com/api/v4/projects/openconnect%2Focserv/releases | grep -o '"tag_name":"[^"]\+"' | head -n 1 | cut -d '"' -f 4)}" --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
  && cd ocserv \
  && autoreconf -fiv \
  && ./configure \
