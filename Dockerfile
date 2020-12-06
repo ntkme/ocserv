@@ -41,7 +41,8 @@ RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readl
  && make install \
  && cd .. \
  && rm -rf certrdn \
- && apk del --purge .build-deps
+ && apk del --purge .build-deps \
+ && ocserv --version
 
 EXPOSE 443/tcp
 EXPOSE 443/udp
