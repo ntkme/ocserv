@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ARG OCSERV_BRANCH=1.1.1
+ARG OCSERV_BRANCH=1.1.2
 
 RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readline shadow \
  && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c readline-dev \
