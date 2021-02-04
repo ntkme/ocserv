@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM docker.io/library/alpine:latest
 
 ARG OCSERV_BRANCH
 
