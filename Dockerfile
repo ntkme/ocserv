@@ -3,8 +3,8 @@ FROM docker.io/library/alpine:latest
 ARG OCSERV_BRANCH
 
 RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readline shadow \
- && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c readline-dev \
- && git clone --branch "${OCSERV_BRANCH:-$(curl -fsSL https://gitlab.com/api/v4/projects/openconnect%2Focserv/releases | grep -o '"tag_name":"[^"]\+"' | head -n 1 | cut -d '"' -f 4)}" --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
+ && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c-compiler readline-dev \
+ && git clone --branch "${OCSERV_BRANCH:-$(curl -fsSL "https://gitlab.com/api/v4/projects/openconnect%2Focserv/repository/tags" | grep -o '"name":"[^"]\+"' | head -n 1 | cut -d '"' -f 4)}" --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
  && cd ocserv \
  && autoreconf -fiv \
  && ./configure \
