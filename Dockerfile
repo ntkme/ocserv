@@ -2,8 +2,8 @@ FROM docker.io/library/alpine:latest
 
 ARG OCSERV_BRANCH
 
-RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readline shadow \
- && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake gnutls-dev gperf libev-dev libseccomp-dev linux-pam-dev lz4-dev protobuf-c-compiler readline-dev \
+RUN apk add --no-cache freeradius-client gnutls iptables ip6tables krb5-libs libev libmaxminddb libnl3 libseccomp lz4-libs linux-pam oath-toolkit-liboath readline shadow \
+ && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake freeradius-client-dev gnutls-dev gperf krb5-dev libev-dev libseccomp-dev linux-pam-dev lz4-dev libmaxminddb-dev libnl3-dev oath-toolkit-dev protobuf-c-compiler readline-dev \
  && git clone --branch "${OCSERV_BRANCH:-$(curl -fsSL "https://gitlab.com/api/v4/projects/openconnect%2Focserv/repository/tags" | grep -o '"name":"[^"]\+"' | head -n 1 | cut -d '"' -f 4)}" --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
  && cd ocserv \
  && autoreconf -fiv \
@@ -42,7 +42,9 @@ RUN apk add --no-cache gnutls iptables libev libseccomp lz4-libs linux-pam readl
  && cd .. \
  && rm -rf certrdn \
  && apk del --purge .build-deps \
- && ocserv --version
+ && which occtl ocpasswd ocserv \
+  | xargs -n 1 ldd \
+ && ocserv --version \
 
 EXPOSE 443/tcp
 EXPOSE 443/udp
