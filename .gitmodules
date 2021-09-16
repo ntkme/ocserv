@@ -1,0 +1,3 @@
+[submodule "vendor/gitlab.com/openconnect/ocserv"]
+	path = vendor/gitlab.com/openconnect/ocserv
+	url = https://gitlab.com/openconnect/ocserv.git
