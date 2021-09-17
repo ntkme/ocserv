@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   ocserv:
-    image: ghcr.io/ntkme/ocserv
+    image: ghcr.io/ntkme/ocserv:edge
     hostname: $HOSTNAME
     cap_add:
       - NET_ADMIN
@@ -14,7 +14,7 @@ services:
     depends_on:
       - certbot
   certbot:
-    image: ghcr.io/ntkme/certbot
+    image: ghcr.io/ntkme/certbot:edge
     hostname: $HOSTNAME
     ports:
       - "80:80/tcp"

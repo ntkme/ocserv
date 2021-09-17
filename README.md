@@ -1,4 +1,4 @@
-# container-ocserv
+# ocserv
 
 ``` sh
 docker run -d \
@@ -9,5 +9,5 @@ docker run -d \
   --publish 443:443/tcp \
   --publish 443:443/udp \
   --volume /etc/letsencrypt:/etc/letsencrypt:ro \
-  ghcr.io/ntkme/ocserv
+  ghcr.io/ntkme/ocserv:edge
 ```
