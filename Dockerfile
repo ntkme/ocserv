@@ -1,10 +1,8 @@
 FROM docker.io/library/alpine:3.15.3
 
-ARG OCSERV_BRANCH
-
 RUN apk add --no-cache freeradius-client gnutls iptables ip6tables krb5-libs libev libmaxminddb libnl3 libseccomp lz4-libs linux-pam oath-toolkit-liboath readline shadow \
  && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake freeradius-client-dev gnutls-dev gperf krb5-dev libev-dev libseccomp-dev linux-pam-dev lz4-dev libmaxminddb-dev libnl3-dev oath-toolkit-dev protobuf-c-compiler readline-dev \
- && git clone --branch "${OCSERV_BRANCH:-$(curl -fsSL "https://gitlab.com/api/v4/projects/openconnect%2Focserv/repository/tags" | grep -o '"name":"[^"]\+"' | head -n 1 | cut -d '"' -f 4)}" --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
+ && git clone --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
  && cd ocserv \
  && autoreconf -fiv \
  && ./configure \
