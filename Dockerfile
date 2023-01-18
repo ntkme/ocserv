@@ -42,7 +42,7 @@ RUN apk add --no-cache freeradius-client gnutls iptables ip6tables krb5-libs lib
  && apk del --purge .build-deps \
  && which occtl ocpasswd ocserv \
   | xargs -n 1 ldd \
- && ocserv --version \
+ && ocserv --version
 
 EXPOSE 443/tcp
 EXPOSE 443/udp
