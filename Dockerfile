@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:3.20.2
+FROM docker.io/library/alpine:3.20.3
 
 RUN apk add --no-cache freeradius-client gnutls iptables ip6tables krb5-libs libev libmaxminddb libnl3 libseccomp lz4-libs linux-pam oath-toolkit-liboath readline shadow \
  && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake freeradius-client-dev gnutls-dev gperf krb5-dev libev-dev libseccomp-dev linux-pam-dev lz4-dev libmaxminddb-dev libnl3-dev oath-toolkit-dev protobuf-c-compiler readline-dev \
