@@ -1,13 +1,12 @@
 FROM docker.io/library/alpine:3.23.3
 
 RUN apk add --no-cache freeradius-client gnutls iptables ip6tables krb5-libs libev libmaxminddb libnl3 libseccomp lz4-libs linux-pam oath-toolkit-liboath readline shadow \
- && apk add --no-cache --virtual .build-deps alpine-sdk autoconf automake freeradius-client-dev gnutls-dev gperf krb5-dev libev-dev libseccomp-dev linux-pam-dev lz4-dev libmaxminddb-dev libnl3-dev oath-toolkit-dev protobuf-c-compiler readline-dev \
+ && apk add --no-cache --virtual .build-deps build-base git meson ninja pkgconf autoconf automake freeradius-client-dev gnutls-dev gperf krb5-dev libev-dev libseccomp-dev linux-pam-dev lz4-dev libmaxminddb-dev libnl3-dev oath-toolkit-dev protobuf-c-compiler readline-dev \
  && git clone --depth 1 -- https://gitlab.com/openconnect/ocserv.git \
  && cd ocserv \
- && autoreconf -fiv \
- && ./configure \
- && make \
- && make install \
+ && meson setup build -Dbuildtype=release \
+ && ninja -C build \
+ && find build/src -type f -executable | xargs -n 1 -I {} cp {} /usr/local/bin \
  && mkdir -p /etc/ocserv \
  && sed -e '/^\[vhost:/,$d' \
         -e '/^auth\|^max-same-clients\|^default-domain\|^dns\|^route\|^no-route/s/^/#/' \
